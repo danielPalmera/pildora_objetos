@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Objetos en JavaScript — Demo Interactiva</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER
+  ============================================================ -->
+  <header class="site-header">
+    <div class="header-bg-grid"></div>
+    <div class="header-glow"></div>
+
+    <div class="header-inner">
+      <div class="badge">JavaScript Avanzado · Clase 04</div>
+
+      <h1 class="header-title">
+        <span class="title-bracket">{</span>
+        Objetos en JavaScript
+        <span class="title-bracket">}</span>
+      </h1>
+
+      <p class="header-subtitle">
+        De la creación a la batalla — un mismo objeto, tres actos
+      </p>
+
+      <div class="presenters">
+        <div class="presenter" data-section="0">
+          <div class="presenter-avatar" style="--c:#6ee7b7">R</div>
+          <div class="presenter-info">
+            <span class="presenter-name">Ruddy</span>
+            <span class="presenter-role">Fundamentos</span>
+          </div>
+        </div>
+        <div class="presenter-arrow">→</div>
+        <div class="presenter" data-section="1">
+          <div class="presenter-avatar" style="--c:#93c5fd">A</div>
+          <div class="presenter-info">
+            <span class="presenter-name">Ana</span>
+            <span class="presenter-role">Manipulación</span>
+          </div>
+        </div>
+        <div class="presenter-arrow">→</div>
+        <div class="presenter" data-section="2">
+          <div class="presenter-avatar" style="--c:#f9a8d4">D</div>
+          <div class="presenter-info">
+            <span class="presenter-name">Dani</span>
+            <span class="presenter-role">Aplicación</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       NAVIGATION TABS
+  ============================================================ -->
+  <nav class="tab-nav" id="tabNav">
+    <button class="tab-btn active" data-tab="0" onclick="cambiarTab(0)">
+      <span class="tab-num">01</span>
+      <span class="tab-label">Fundamentos</span>
+      <span class="tab-presenter">Ruddy</span>
+    </button>
+    <button class="tab-btn" data-tab="1" onclick="cambiarTab(1)">
+      <span class="tab-num">02</span>
+      <span class="tab-label">Manipulación</span>
+      <span class="tab-presenter">Ana</span>
+    </button>
+    <button class="tab-btn" data-tab="2" onclick="cambiarTab(2)">
+      <span class="tab-num">03</span>
+      <span class="tab-label">Batalla</span>
+      <span class="tab-presenter">Dani</span>
+    </button>
+
+    <!-- Barra de progreso del objeto -->
+    <div class="objeto-status" id="objetoStatus">
+      <span class="objeto-dot"></span>
+      <code id="objetoLabel">personaje = { ... }</code>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
+  <main class="main-content">
+
+    <!-- ==========================================
+         SECCIÓN 1 — RUDDY: Fundamentos
+    ========================================== -->
+    <section class="tab-section active" id="section-0">
+
+      <div class="section-header">
+        <div class="section-tag" style="--accent:#6ee7b7">Sección 01 · Ruddy</div>
+        <h2 class="section-title">Fundamentos de Objetos</h2>
+        <p class="section-desc">
+          Un objeto es una colección de <strong>pares clave-valor</strong>.
+          Piénsalo como una ficha de personaje en un juego de rol.
+        </p>
+      </div>
+
+      <!-- ── Comparativa arrays vs objetos ── -->
+      <div class="card">
+        <h3 class="card-title">¿Por qué objetos y no arrays?</h3>
+        <div class="compare-grid">
+          <div class="compare-box compare-bad">
+            <div class="compare-label">❌ Con Array (confuso)</div>
+            <pre class="code-block">// ¿Qué significa cada posición?
+const héroe = ["Kael", 100, 15, "Mago"];
+console.log(héroe[2]); // ¿Qué es 15?</pre>
+          </div>
+          <div class="compare-box compare-good">
+            <div class="compare-label">✅ Con Objeto (claro)</div>
+            <pre class="code-block">const héroe = {
+  nombre: "Kael",
+  vida:   100,
+  ataque: 15,
+  clase:  "Mago"
+};
+console.log(héroe.ataque); // 15 ← ¡obvio!</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Crear el objeto global ── -->
+      <div class="card card-highlight">
+        <h3 class="card-title">
+          <span class="accent-green">🛠 Demo 1</span> — Crea tu personaje global
+        </h3>
+        <p class="card-desc">
+          Completa los campos y pulsa <strong>Crear Personaje</strong>.
+          Este objeto viajará por <em>toda</em> la aplicación.
+        </p>
+
+        <div class="form-grid">
+          <div class="field-group">
+            <label>nombre <span class="field-type">string</span></label>
+            <input type="text" id="inp-nombre" placeholder="Kael" maxlength="20" />
+          </div>
+          <div class="field-group">
+            <label>clase <span class="field-type">string</span></label>
+            <select id="inp-clase">
+              <option value="Mago">Mago</option>
+              <option value="Guerrero">Guerrero</option>
+              <option value="Arquero">Arquero</option>
+              <option value="Paladín">Paladín</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>vida <span class="field-type">number</span></label>
+            <input type="number" id="inp-vida" placeholder="100" min="50" max="200" />
+          </div>
+          <div class="field-group">
+            <label>ataque <span class="field-type">number</span></label>
+            <input type="number" id="inp-ataque" placeholder="15" min="5" max="50" />
+          </div>
+          <div class="field-group">
+            <label>activo <span class="field-type">boolean</span></label>
+            <select id="inp-activo">
+              <option value="true">true</option>
+              <option value="false">false</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="crearPersonaje()">
+          ⚡ Crear Personaje
+        </button>
+
+        <div id="output-crear" class="output hidden"></div>
+
+        <!-- Código generado dinámicamente -->
+        <div id="code-personaje" class="code-generated hidden">
+          <div class="code-label">// Variable global creada:</div>
+          <pre id="code-personaje-text"></pre>
+        </div>
+      </div>
+
+      <!-- ── Notación punto vs bracket ── -->
+      <div class="card">
+        <h3 class="card-title">
+          <span class="accent-green">🛠 Demo 2</span> — Acceder a propiedades
+        </h3>
+        <div class="notation-grid">
+          <div class="notation-box">
+            <div class="notation-title">Dot Notation <code>.propiedad</code></div>
+            <div class="notation-demo">
+              <input type="text" id="dot-key" placeholder="nombre" class="input-sm" />
+              <button class="btn btn-sm" onclick="leerDot()">Leer</button>
+              <div id="dot-output" class="output-inline"></div>
+            </div>
+            <pre class="code-block mini">personaje.nombre  → "Kael"
+personaje.vida    → 100</pre>
+          </div>
+          <div class="notation-box">
+            <div class="notation-title">Bracket Notation <code>["propiedad"]</code></div>
+            <div class="notation-demo">
+              <input type="text" id="bracket-key" placeholder="clase" class="input-sm" />
+              <button class="btn btn-sm" onclick="leerBracket()">Leer</button>
+              <div id="bracket-output" class="output-inline"></div>
+            </div>
+            <pre class="code-block mini">personaje["nombre"] → "Kael"
+// Útil con variables dinámicas</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Métodos y this ── -->
+      <div class="card">
+        <h3 class="card-title">
+          <span class="accent-green">🛠 Demo 3</span> — Métodos y <code>this</code>
+        </h3>
+        <p class="card-desc">
+          Un <strong>método</strong> es una función dentro de un objeto.
+          <code>this</code> se refiere al objeto en sí mismo.
+        </p>
+        <pre class="code-block">// Método dentro del objeto:
+personaje.presentarse = function() {
+  return `Soy ${this.nombre}, un ${this.clase} con ${this.vida} de vida`;
+  //             ↑ this = personaje
+}</pre>
+        <button class="btn btn-secondary" onclick="llamarMetodo()">
+          🎭 Llamar personaje.presentarse()
+        </button>
+        <div id="output-metodo" class="output hidden"></div>
+      </div>
+
+      <!-- ── Destructuring ── -->
+      <div class="card">
+        <h3 class="card-title">
+          <span class="accent-green">🛠 Demo 4</span> — Destructuring
+        </h3>
+        <p class="card-desc">
+          Extraer propiedades en variables separadas de forma elegante.
+        </p>
+        <pre class="code-block">// Sin destructuring (verboso):
+const nombre = personaje.nombre;
+const vida   = personaje.vida;
+
+// ✅ Con destructuring (limpio):
+const { nombre, vida, clase } = personaje;</pre>
+        <button class="btn btn-secondary" onclick="mostrarDestructuring()">
+          🔓 Aplicar Destructuring
+        </button>
+        <div id="output-destructuring" class="output hidden"></div>
+      </div>
+
+    </section>
+
+    <!-- ==========================================
+         SECCIÓN 2 — ANA: Manipulación avanzada
+    ========================================== -->
+    <section class="tab-section" id="section-1">
+
+      <div class="section-header">
+        <div class="section-tag" style="--accent:#93c5fd">Sección 02 · Ana</div>
+        <h2 class="section-title">Manipulación Avanzada</h2>
+        <p class="section-desc">
+          Trabajamos directamente sobre <code>personaje</code> —
+          el objeto creado por Ruddy. Lo copiamos, exploramos y mejoramos.
+        </p>
+      </div>
+
+      <!-- Estado del objeto actual -->
+      <div class="card card-state">
+        <h3 class="card-title">📦 Estado actual del objeto <code>personaje</code></h3>
+        <div id="estado-personaje" class="estado-box">
+          <span class="estado-empty">Crea primero el personaje en la Sección 01 →</span>
+        </div>
+        <button class="btn btn-sm btn-ghost" onclick="refrescarEstado()">↻ Refrescar</button>
+      </div>
+
+      <!-- ── Spread Operator ── -->
+      <div class="card">
+        <h3 class="card-title">
+          <span class="accent-blue">🛠 Demo 5</span> — Spread Operator <code>{ ...obj }</code>
+        </h3>
+        <p class="card-desc">
+          Crea una <strong>copia independiente</strong> del objeto y añade o sobreescribe propiedades
+          sin tocar el original.
+        </p>
+        <pre class="code-block">// Copia con modificación (sin mutar el original):
+const personajeMejorado = {
+  ...personaje,       // copia todas las propiedades
+  nivel: 2,           // nueva propiedad
+  ataque: personaje.ataque + 5  // sobreescribe ataque
+};</pre>
+
+        <div class="form-grid mini">
+          <div class="field-group">
+            <label>nivel <span class="field-type">number</span></label>
+            <input type="number" id="spread-nivel" value="2" min="1" max="10" />
+          </div>
+          <div class="field-group">
+            <label>bonus ataque <span class="field-type">number</span></label>
+            <input type="number" id="spread-bonus" value="5" min="0" max="30" />
+          </div>
+          <div class="field-group">
+            <label>habilidad especial <span class="field-type">string</span></label>
+            <input type="text" id="spread-habilidad" placeholder="Bola de fuego" />
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="aplicarSpread()">
+          ✨ Crear Copia con Spread
+        </button>
+        <div id="output-spread" class="output hidden"></div>
+      </div>
+
+      <!-- ── Object.keys / values / entries ── -->
+      <div class="card">
+        <h3 class="card-title">
+          <span class="accent-blue">🛠 Demo 6</span> — Object.keys · values · entries
+        </h3>
+        <p class="card-desc">
+          Métodos estáticos para <em>iterar</em> sobre un objeto como si fuera un array.
+        </p>
+
+        <div class="methods-grid">
+          <div class="method-box">
+            <div class="method-name">Object.keys()</div>
+            <div class="method-desc">Devuelve un array de las <strong>claves</strong></div>
+            <button class="btn btn-sm" onclick="mostrarKeys()">▶ Ejecutar</button>
+            <div id="out-keys" class="output-inline hidden"></div>
+          </div>
+          <div class="method-box">
+            <div class="method-name">Object.values()</div>
+            <div class="method-desc">Devuelve un array de los <strong>valores</strong></div>
+            <button class="btn btn-sm" onclick="mostrarValues()">▶ Ejecutar</button>
+            <div id="out-values" class="output-inline hidden"></div>
+          </div>
+          <div class="method-box">
+            <div class="method-name">Object.entries()</div>
+            <div class="method-desc">Devuelve un array de pares <strong>[clave, valor]</strong></div>
+            <button class="btn btn-sm" onclick="mostrarEntries()">▶ Ejecutar</button>
+            <div id="out-entries" class="output-inline hidden"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TypeScript Interfaces ── -->
+      <div class="card">
+        <h3 class="card-title">
+          <span class="accent-blue">📘 TypeScript</span> — Interfaces y Type Aliases
+        </h3>
+        <p class="card-desc">
+          En TypeScript podemos <strong>definir la forma</strong> que debe tener un objeto.
+          Aquí simulamos su validación.
+        </p>
+
+        <div class="ts-tabs">
+          <div class="ts-panel">
+            <div class="ts-label">Interface</div>
+            <pre class="code-block ts">interface Personaje {
+  nombre:  string;
+  clase:   string;
+  vida:    number;
+  ataque:  number;
+  activo:  boolean;
+}
+
+// TypeScript ERROR si falta una propiedad
+// o si el tipo no coincide</pre>
+          </div>
+          <div class="ts-panel">
+            <div class="ts-label">Type Alias</div>
+            <pre class="code-block ts">type Personaje = {
+  nombre:  string;
+  clase:   string;
+  vida:    number;
+  ataque:  number;
+  activo:  boolean;
+};
+
+// Más flexible — puede usarse
+// con uniones: string | number</pre>
+          </div>
+        </div>
+
+        <h4 class="sub-title">🔬 Simulador de validación TypeScript</h4>
+        <p class="card-desc small">Introduce una propiedad y un valor para ver si superaría la validación de tipo.</p>
+        <div class="ts-validator">
+          <select id="ts-key">
+            <option value="nombre">nombre (string)</option>
+            <option value="vida">vida (number)</option>
+            <option value="ataque">ataque (number)</option>
+            <option value="activo">activo (boolean)</option>
+          </select>
+          <input type="text" id="ts-value" placeholder="Valor a asignar" />
+          <button class="btn btn-sm" onclick="validarTipo()">✔ Validar tipo</button>
+        </div>
+        <div id="output-ts" class="output hidden"></div>
+      </div>
+
+    </section>
+
+    <!-- ==========================================
+         SECCIÓN 3 — DANI: Batalla
+    ========================================== -->
+    <section class="tab-section" id="section-2">
+
+      <div class="section-header">
+        <div class="section-tag" style="--accent:#f9a8d4">Sección 03 · Dani</div>
+        <h2 class="section-title">Batalla de Objetos</h2>
+        <p class="section-desc">
+          El mismo <code>personaje</code> ahora combate contra un <code>enemigo</code>.
+          Dos objetos interactuando en tiempo real.
+        </p>
+      </div>
+
+      <!-- Dos tarjetas de combatientes -->
+      <div class="battle-arena">
+
+        <!-- Personaje -->
+        <div class="combatant-card" id="card-personaje">
+          <div class="combatant-side">HÉROE</div>
+          <div class="combatant-avatar hero-avatar" id="hero-avatar">⚔</div>
+          <div class="combatant-name" id="battle-nombre">— Sin personaje —</div>
+          <div class="combatant-clase" id="battle-clase"></div>
+
+          <div class="vida-section">
+            <div class="vida-label">
+              <span>VIDA</span>
+              <span id="vida-personaje-num">—</span>
+            </div>
+            <div class="vida-bar-track">
+              <div class="vida-bar hero-bar" id="vida-personaje-bar" style="width:100%"></div>
+            </div>
+          </div>
+
+          <div class="combatant-stats">
+            <div class="stat">
+              <span class="stat-label">ATK</span>
+              <span class="stat-val" id="stat-ataque">—</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">LVL</span>
+              <span class="stat-val" id="stat-nivel">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- VS -->
+        <div class="vs-center">
+          <div class="vs-badge">VS</div>
+          <div class="battle-log-mini" id="battle-log-mini">¡Prepárate para la batalla!</div>
+        </div>
+
+        <!-- Enemigo -->
+        <div class="combatant-card enemy-card" id="card-enemigo">
+          <div class="combatant-side">ENEMIGO</div>
+          <div class="combatant-avatar enemy-avatar">💀</div>
+          <div class="combatant-name" id="enemy-nombre">Zarak el Oscuro</div>
+          <div class="combatant-clase">Nigromante · Lv.3</div>
+
+          <div class="vida-section">
+            <div class="vida-label">
+              <span>VIDA</span>
+              <span id="vida-enemigo-num">120</span>
+            </div>
+            <div class="vida-bar-track">
+              <div class="vida-bar enemy-bar" id="vida-enemigo-bar" style="width:100%"></div>
+            </div>
+          </div>
+
+          <div class="combatant-stats">
+            <div class="stat">
+              <span class="stat-label">ATK</span>
+              <span class="stat-val">12</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">LVL</span>
+              <span class="stat-val">3</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Controles de batalla -->
+      <div class="battle-controls">
+        <button class="btn btn-attack" id="btn-attack" onclick="atacarEnemigo()">
+          ⚔ Atacar
+        </button>
+        <button class="btn btn-secondary" onclick="reiniciarJuego()">
+          ↺ Reiniciar
+        </button>
+      </div>
+
+      <!-- Log de batalla -->
+      <div class="card">
+        <h3 class="card-title">📜 Registro de Batalla</h3>
+        <div class="battle-log" id="battleLog">
+          <div class="log-entry log-info">⚡ ¡La arena está lista! Crea un personaje en la Sección 01 para comenzar.</div>
+        </div>
+      </div>
+
+      <!-- Código de los objetos en juego -->
+      <div class="card">
+        <h3 class="card-title">💻 Los objetos detrás de la magia</h3>
+        <div class="code-dual">
+          <div>
+            <div class="code-label accent-green">// personaje (creado por Ruddy)</div>
+            <pre id="code-personaje-battle" class="code-block">// Crea primero el personaje →</pre>
+          </div>
+          <div>
+            <div class="code-label accent-red">// enemigo (objeto de Dani)</div>
+            <pre class="code-block" id="code-enemigo-display">let enemigo = {
+  nombre: "Zarak el Oscuro",
+  clase: "Nigromante",
+  vida: 120,
+  vidaMax: 120,
+  ataque: 12,
+  nivel: 3,
+  activo: true
+};</pre>
+          </div>
+        </div>
+
+        <!-- Función atacarEnemigo explicada -->
+        <div class="code-label" style="margin-top:1.5rem">// La función que conecta ambos objetos:</div>
+        <pre class="code-block">function atacarEnemigo() {
+  // 1. Calcular daño del personaje al enemigo
+  const daño = personaje.ataque;
+  enemigo.vida -= daño;                   // mutamos el objeto enemigo
+
+  // 2. El enemigo contraataca
+  const contraataque = enemigo.ataque;
+  personaje.vida -= contraataque;         // mutamos el objeto personaje
+
+  // 3. Actualizar la interfaz
+  actualizarBarrasDeVida();
+  agregarLog(`${personaje.nombre} hace ${daño} de daño`);
+}</pre>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>JavaScript · Objetos</span>
+      <span class="footer-sep">·</span>
+      <span>Ruddy · Ana · Dani</span>
+      <span class="footer-sep">·</span>
+      <span>Clase 04</span>
+    </div>
+  </footer>
+
+  <!-- Overlay de victoria/derrota -->
+  <div class="battle-overlay hidden" id="battleOverlay">
+    <div class="overlay-box">
+      <div class="overlay-emoji" id="overlay-emoji">🏆</div>
+      <div class="overlay-title" id="overlay-title">¡Victoria!</div>
+      <div class="overlay-subtitle" id="overlay-subtitle"></div>
+      <button class="btn btn-primary" onclick="reiniciarJuego()">Jugar de nuevo</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

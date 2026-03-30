@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batalla Epica</title>
+    <style>
+        button{
+            margin: 20px;
+            height: 40px;
+            width: 80px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <button id="saludar">Saludar</button>
+    <button id="atacar">atacar</button>
+    <button id="burla">Burlarse</button>
+    
+    <img id="imagen_inicial" src="/523c3fc9-e9a6-409c-88e0-908aed94bf2b.jpeg">
+    <img id="imagen_ataque_1" src="/accc5b27-ff86-44fc-ac5b-fe49da318e50.jpeg" style="display:none">
+    <img id="imagen_ataque_2" src="/864cb897-9aa7-4da0-9f2a-8dee837d5205.jpeg" style="display:none">
+    <img id="imagen_final" src="/51a1e231-4728-4ffa-a5fc-fe7ff6695970.jpeg" style="display:none">
+    <script>
+        let personaje = {
+            nombre: "Daniel",
+            clase: "Guerrero",
+            vida: 100,
+            vidaMax: 100,
+            ataque: 15,
+            nivel: 1,
+            activo: true,
+            presentarse() { 
+                console.log(`Soy ${this.nombre}, ${this.clase} de nivel ${this.nivel} y juro por mi vida detenerte`)
+            }
+        };
+        
+        let enemigo = {
+            nombre: "Zarak el Oscuro",
+            clase: "Nigromante",
+            vida: 120,
+            vidaMax: 120,
+            ataque: 12,
+            nivel: 3,
+            activo: true,
+            responder(){
+                console.log(` ${this.nombre} en un extraño en un extraño idioma nos dice`)
+                console.warn("pndj")
+            }
+        };
+
+        function iniciar(){
+            personaje.presentarse();
+            risa()
+        }
+
+        function actualizarBarrasDeVida(){
+            console.error(`Vida Heroe : ${personaje.vida}/${personaje.vidaMax}`)
+            console.error(`Vida Villano : ${enemigo.vida}/${enemigo.vidaMax}`)
+        }
+
+        function risa(){
+            enemigo.responder()
+        }
+
+        let turnoAtaque = 0;
+
+        function mostrarImagen(id) {
+            document.getElementById('imagen_inicial').style.display = 'none';
+            document.getElementById('imagen_ataque_1').style.display = 'none';
+            document.getElementById('imagen_ataque_2').style.display = 'none';
+            document.getElementById('imagen_final').style.display = 'none';
+            document.getElementById(id).style.display = '';
+        }
+
+        function atacarEnemigo() {
+            console.log("EL heroe ataca al villano")
+            const daño = personaje.ataque;
+            enemigo.vida -= daño;
+            console.log(`${personaje.nombre} el ${personaje.clase} hace ${daño} de daño`);
+
+            console.log("EL villano contraataca")
+            const contraataque = enemigo.ataque;
+            personaje.vida -= contraataque;
+            console.log(`${enemigo.nombre} hace ${contraataque} de daño`);
+            actualizarBarrasDeVida();
+
+            if(enemigo.vida<=0){
+                mostrarImagen('imagen_final');
+                alert("FIN, Heroicamente derrotaste al enemigo")
+                return;
+            }
+
+            turnoAtaque++;
+            if(turnoAtaque % 2 === 1){
+                mostrarImagen('imagen_ataque_1');
+            } else {
+                mostrarImagen('imagen_ataque_2');
+            }
+            
+            if(enemigo.vida < 20){
+                alert("En villano se nota en sus ultimas")
+            }
+            if(personaje.vida < 20){
+                alert("EL heroe se nota cansado, pero NO se rinde")
+            }
+        }
+
+        const _saludar_ = document.getElementById('saludar');
+        const _atacar_ = document.getElementById('atacar');
+        const _burla_ = document.getElementById('burla');
+
+        _saludar_.addEventListener('click', iniciar);
+        _atacar_.addEventListener('click', atacarEnemigo);
+        _burla_.addEventListener('click', risa);
+
+    </script>
+
+    
+</body>
+</html>

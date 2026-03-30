@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="#" class="clase_css" id="id_css" target="_blank">asasas</a>
+    <script>
+
+        /*
+        * ejercico 1
+            crea un objeto que represente a tu mascota o a una mascota de un conocido
+            con los atributos: especie, nombre y sexo
+            indica los atributos y muestralos por consola usando dot notation
+
+            const mascota={
+                especie:"",
+                nombre:"",
+                sexo:""
+            }
+
+            mascota.especie="Felino"
+            mascota.nombre="preta"
+            mascota.sexo="f"
+            console.log(`Especie : ${mascota.especie} Nombre : ${mascota.nombre} Sexo : ${mascota.sexo}`)
+        */
+            
+        /*
+        * ejercico 2
+            usando como base el ejercicio anterior
+            agrega un atrinuto para identificar el "sonido" que producen
+            muestra el valor de el atriburo de "sonido" por bracket notation []
+        
+            const mascota={
+                especie:"",
+                nombre:"",
+                sexo:"",
+                sonido:""
+            }
+
+            mascota.especie="Felino"
+            mascota.nombre="preta"
+            mascota.sexo="f"
+            mascota.sonido="Miau"
+            console.log(mascota["sonido"])
+        */
+
+        /*
+        * ejercico 3
+            usando como base el ejercicio anterior
+            agrega un metodo para que la mascota al "saludar" muestre por consola el "sonido"
+            llama al metodo
+
+            const mascota={
+                especie:"",
+                nombre:"",
+                sexo:"",
+                sonido:"",
+                saludar(){
+                    console.log(this.sonido)
+                }
+            }
+
+            mascota.especie="Felino"
+            mascota.nombre="preta"
+            mascota.sexo="f"
+            mascota.sonido="Miau"
+            mascota.saludar()
+        */
+
+        /* ejercico 4
+            usando como base el ejercicio anterior
+            usando Destructuring obten y luego muestra por consola solo el nombre y la especie
+            
+            const mascota={
+                especie:"",
+                nombre:"",
+                sexo:"",
+                sonido:"",
+                saludar(){
+                    console.log(this.sonido)
+                }
+            }
+
+            mascota.especie="Felino"
+            mascota.nombre="preta"
+            mascota.sexo="f"
+            mascota.sonido="Miau"
+            
+            let { nombre,especir } = mascota;
+            console.log(nombre);
+
+        */
+
+        /*ejercicio 5
+        usando como base el ejercicio 3 como base
+
+        utiliza el Spread operator para crear dos mascotas ahora
+        e imprime sus atributos por consola.
+
+        const mascota={
+            especie:"",
+            nombre:"",
+            sexo:"",
+            sonido:""
+        }
+
+        mascota.especie="Felina"
+        mascota.nombre="Preta"
+        mascota.sexo="F"
+        mascota.sonido="Miau"
+
+        const mascota2={...mascota}
+        mascota2.especie="Canina"
+        mascota2.nombre="Mindy"
+        mascota2.sonido="Guau"
+
+        console.log(mascota)
+        console.log(mascota2)
+
+        */
+        /*ejercicio 6
+            usando el ejercicio 2 muestra por consola todos los atributos usando Object.keys
+            const mascota={
+                especie:"",
+                nombre:"",
+                sexo:"",
+                sonido:""
+            }
+            console.log(Object.keys(mascota))
+        */
+
+        /*
+            ejercicio 7
+            usando TS crea una Interfaces que defina los atributos obligatorios de la mascota, incorporando el atributo de edad
+
+            interface Mascota {
+                especie:string;
+                nombre:string;
+                sexo:string;
+                sonido:string;
+                edad=number;
+            }
+        */
+        /*
+        ejericios finales
+        
+        Ejercicio A: El Carrito de Compras
+        Crea un objeto carrito que tenga:
+        Una propiedad productos (un array de objetos, cada uno con nombre y precio).
+        Un método calcularTotal que use this.productos y Object.values (o un bucle) para 
+        devolver la suma de todos los precios.
+        Un método agregarProducto(nuevoNombre, nuevoPrecio) que añada un objeto al array.
+        */
+        /*
+        const carrito = {
+            listaProductos: [
+                { nombre: "Manzana", precio: 1.5 },
+                { nombre: "Pan", precio: 1.0 }
+            ],
+            calcularTotal() {
+                let total = 0;
+                for (const producto of this.listaProductos) {
+                    total += producto.precio;
+                }
+                return total;
+            },
+            agregarProducto(nuevoNombre, nuevoPrecio) {
+                this.listaProductos.push({ nombre: nuevoNombre, precio: nuevoPrecio });
+            }
+        };
+
+        carrito.agregarProducto("Leche", 1.2);
+        carrito.agregarProducto("Naranjas", 2);
+        carrito.agregarProducto("Limon", .5);
+        console.log("Total del carrito:", carrito.calcularTotal()); // 3.7
+        carrito.agregarProducto("Leche", 1.2);
+        console.log(carrito.listaProductos);
+        /*
+        Ejercicio B: Spread Operator
+        Tienes dos objetos:
+        usuarioBase: { id: 1, nombre: "Juan", premium: false }
+        actualizaciones: { premium: true, ciudad: "Madrid" }
+        Crea un nuevo objeto usuarioFinal usando el Spread Operator para combinar ambos, 
+        asegurándote de que las actualizaciones sobrescriban los datos viejos.
+        Usa Destructuring para extraer nombre y ciudad del objeto usuarioFinal en una sola 
+        línea.
+        
+        const usuarioBase = { id: 2, nombre: "Juan", premium: false };
+        const actualizaciones = { premium: true, ciudad: "Madrid" };
+
+        // 1. Fusión con Spread Operator
+        const usuarioFinal = { ...usuarioBase, ...actualizaciones };
+
+        // 2. Extracción con Destructuring
+        const { nombre, ciudad } = usuarioFinal;
+
+        console.log(nombre, ciudad); // "Juan", "Madrid"
+       */
+        /*
+        Ejercicio C: Analizador de Inventario
+        Dado el objeto stock = { laptop: 5, mouse: 20, teclado: 10 }:
+        Usa un método de Object para obtener todas las llaves e imprimirlas.
+        Crea una función que reciba el objeto stock y una variable productoBuscado. 
+        Usa bracket notation para devolver cuánto stock hay de ese producto (si no existe, 
+        debe devolver "No encontrado").
+        const stock = { laptop: 5, mouse: 20, teclado: 10 };
+
+        // 1. Obtener llaves
+        console.log(Object.keys(stock)); // ["laptop", "mouse", "teclado"]
+
+        // 2. Función de búsqueda dinámica
+        function buscarStock(inventario, productoBuscado) {
+        // Usamos bracket notation para acceder dinámicamente
+        const cantidad = inventario[productoBuscado];
+        return cantidad !== undefined ? cantidad : "No encontrado";
+        }
+
+        console.log(buscarStock(stock, "mouse"));   // 20
+        console.log(buscarStock(stock, "monitor")); // "No encontrado"
+
+        */
+    </script>
+</body>
+</html>
